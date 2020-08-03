@@ -1,42 +1,54 @@
 <template>
   <v-container>
-    <v-row>
-      <v-flex xs12 lg4 class="ma-auto mt-16">
-        <h1 class="headline-1 mb-5">Register</h1>
-        <form @submit.prevent="registerHandler">
-          <v-text-field
-              v-model.trim="email"
-              :error-messages="emailErrors"
-              label="Email"
-              type="text"
-              name="email"
-          ></v-text-field>
-          <v-text-field
-              v-model.trim="password"
-              :error-messages="passwordErrors"
-              :counter="'>' + 6"
-              label="Password"
-              type="password"
-              name="password"
-          ></v-text-field>
-          <v-text-field
-              v-model.trim="confirmPassword"
-              :counter="'>' + 6"
-              label="Confirm Password"
-              type="password"
-              name="confirmPassword"
-              :error-messages="confirmPasswordErrors"
-          ></v-text-field>
-          <v-btn
-              color="orange lighten-1"
-              outlined
-              class="mt-3"
-              type="submit"
-          >register
-          </v-btn>
-        </form>
-      </v-flex>
-    </v-row>
+    <kinesis-container>
+      <v-row>
+        <v-flex xs12 lg4 class="ma-auto mt-16">
+          <kinesis-element type="depth" :strength='10'>
+            <h1 class="headline-1 mb-5">Register</h1>
+          </kinesis-element>
+          <form @submit.prevent="registerHandler">
+            <kinesis-element type='depth' :strength='5'>
+              <v-text-field
+                  v-model.trim="email"
+                  :error-messages="emailErrors"
+                  label="Email"
+                  type="text"
+                  name="email"
+              ></v-text-field>
+            </kinesis-element>
+            <kinesis-element type='depth' :strength='0'>
+              <v-text-field
+                  v-model.trim="password"
+                  :error-messages="passwordErrors"
+                  :counter="'>' + 6"
+                  label="Password"
+                  type="password"
+                  name="password"
+              ></v-text-field>
+            </kinesis-element>
+            <kinesis-element type='depth' :strength='-5'>
+              <v-text-field
+                  v-model.trim="confirmPassword"
+                  :counter="'>' + 6"
+                  label="Confirm Password"
+                  type="password"
+                  name="confirmPassword"
+                  :error-messages="confirmPasswordErrors"
+              ></v-text-field>
+            </kinesis-element>
+            <kinesis-element type='depth'>
+              <v-btn
+                  color="orange lighten-1"
+                  outlined
+                  class="mt-3"
+                  type="submit"
+              >register
+              </v-btn>
+            </kinesis-element>
+          </form>
+        </v-flex>
+      </v-row>
+    </kinesis-container>
   </v-container>
 </template>
 <script>
@@ -50,7 +62,7 @@
     validations: {
       email: {required, email},
       password: {required, minLength: minLength(6)},
-      confirmPassword: {required, sameAsPassword: sameAs('password')}
+      confirmPassword: {required, sameAsPassword: sameAs("password")}
     },
     data: () => ({
       email: "",
@@ -62,7 +74,7 @@
       emailErrors() {
         const errors = [];
         if (!this.$v.email.$dirty) return errors;
-        !this.$v.email.email && errors.push('Must be valid e-mail');
+        !this.$v.email.email && errors.push("Must be valid e-mail");
         !this.$v.email.required && errors.push("Email is required.");
         return errors
       },
@@ -83,7 +95,7 @@
     },
     methods: {
       ...mapActions({
-        register: 'register'
+        register: "register"
       }),
       registerHandler() {
         if (this.$v.$invalid) {
@@ -97,13 +109,13 @@
           isAdmin: this.isAdmin
         };
         this.register(user)
-        .then(() => {
-          this.$router.push('/');
-          this.$v.$reset();
-        })
-        .catch(err => {
-          console.error(err.message)
-        })
+          .then(() => {
+            this.$router.push("/");
+            this.$v.$reset();
+          })
+          .catch(err => {
+            console.error(err.message)
+          })
       }
     },
   }

@@ -5,6 +5,7 @@ import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify';
 import Axios from 'axios';
+import VueKinesis from 'vue-kinesis';
 
 Vue.config.productionTip = false;
 Vue.prototype.$http = Axios;
@@ -15,6 +16,7 @@ if (token) {
 }
 
 Vue.use(Vuelidate);
+Vue.use(VueKinesis);
 
 new Vue({
   router,

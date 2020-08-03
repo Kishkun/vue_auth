@@ -37,7 +37,9 @@
       </v-app-bar>
     </div>
     <v-main>
-      <router-view></router-view>
+      <transition name="fade">
+        <router-view></router-view>
+      </transition>
     </v-main>
   </v-app>
 </template>
@@ -94,5 +96,13 @@
 <style scoped>
   .pointer{
     cursor: pointer;
+  }
+
+  .fade-enter-active {
+    transition: opacity 0.25s ease-out;
+  }
+
+  .fade-enter, .fade-leave-to {
+    opacity: 0;
   }
 </style>
